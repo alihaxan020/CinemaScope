@@ -1,0 +1,597 @@
+diff --git a/node_modules/react-native-snap-carousel/.DS_Store b/node_modules/react-native-snap-carousel/.DS_Store
+new file mode 100644
+index 0000000..b2a5911
+Binary files /dev/null and b/node_modules/react-native-snap-carousel/.DS_Store differ
+diff --git a/node_modules/react-native-snap-carousel/CHANGELOG.md b/node_modules/react-native-snap-carousel/CHANGELOG.md
+index 2cc795f..8fd8c93 100644
+--- a/node_modules/react-native-snap-carousel/CHANGELOG.md
++++ b/node_modules/react-native-snap-carousel/CHANGELOG.md
+@@ -1,14 +1,3 @@
+-## v3.9.1
+-
+-* Fix for `getNode()` deprecation warning with RN `0.62+` (thanks [@r0b0t3d](https://github.com/r0b0t3d))
+-
+-## v3.9.0
+-
+-* Fix for incorrect snapToItem (thanks [@Romick2005](https://github.com/Romick2005) & [@sergeyzhukov](https://github.com/sergeyzhukov))
+-* Fix issue with tappable pagination dots (thanks [@Creskendoll](https://github.com/Creskendoll))
+-* Clear all timeouts when stopping autoplay (thanks [@adrianocola](https://github.com/adrianocola))
+-* Add props `animatedDuration`, `animatedFriction`, `animatedTension` and `delayPressInDot` to the `Pagination` component (thanks [@muhlenbrock](https://github.com/muhlenbrock))
+-
+ ## v3.8.4
+ 
+ * Remove TypeScript definitions since they were causing issues (thanks [@radko93](https://github.com/radko93))
+diff --git a/node_modules/react-native-snap-carousel/README.md b/node_modules/react-native-snap-carousel/README.md
+index 4242d19..9d80f9b 100644
+--- a/node_modules/react-native-snap-carousel/README.md
++++ b/node_modules/react-native-snap-carousel/README.md
+@@ -1,4 +1,5 @@
+ # react-native-snap-carousel
++Swiper component for React Native featuring **previews**, **multiple layouts**, **parallax images**, **performant handling of huge numbers of items**, and **RTL support**. Compatible with Android & iOS.
+ 
+ ![platforms](https://img.shields.io/badge/platforms-Android%20%7C%20iOS-brightgreen.svg?style=flat-square&colorB=191A17)
+ [![npm](https://img.shields.io/npm/v/react-native-snap-carousel.svg?style=flat-square)](https://www.npmjs.com/package/react-native-snap-carousel)
+@@ -9,13 +10,19 @@
+ [![Issue Stats](https://img.shields.io/issuestats/i/github/archriss/react-native-snap-carousel.svg?style=flat-square&colorB=44cc11)](http://github.com/archriss/react-native-snap-carousel/issues)
+ 
+ -----
+------
+ 
+-## ✨ Some great news for you, fellow plugin user!
++### :raised_hands: New feature: layouts
++
++[Do you want to find out more?](#layouts-and-custom-interpolations)
+ 
+-### 💡 **[Head over there now](https://github.com/archriss/react-native-snap-carousel/blob/master/doc/VERSION_4.md)** to learn more about all the goodness that's coming your way.
++![react-native-snap-carousel default layout](https://i.imgur.com/e1WbZcu.gif)
++![react-native-snap-carousel tinder layout](https://i.imgur.com/R7OpEFs.gif)
++![react-native-snap-carousel stack layout](https://i.imgur.com/foMIGM2.gif)
+ 
+ -----
++
++### :sparkles: Do you want an even better plugin? [Vote for React Native's feature requests](https://github.com/archriss/react-native-snap-carousel/issues/203) to let the Facebook team know what they need to improve!
++
+ -----
+ 
+ ## Table of contents
+@@ -36,40 +43,23 @@
+ 
+ ## Showcase
+ 
+-### :raised_hands: New feature: layouts
+-
+-[Do you want to find out more?](#layouts-and-custom-interpolations)
++### Archriss' "Ville d'Aix-en-Provence" app
+ 
+-![react-native-snap-carousel default layout](https://i.imgur.com/e1WbZcu.gif)
+-![react-native-snap-carousel tinder layout](https://i.imgur.com/R7OpEFs.gif)
+-![react-native-snap-carousel stack layout](https://i.imgur.com/foMIGM2.gif)
+-
+-### Real-world examples
+-
+-These are live apps we've created that make heavy use of the plugin. Don't be shy, share yours if you've done something awesome with it!
++**This app is available on [Android](https://play.google.com/store/apps/details?id=fr.archriss.aixmobile.app) and [iOS](https://itunes.apple.com/fr/app/ville-daix-en-provence/id494548366?mt=8).** It uses **version 3.2.0** of the plugin, with `FlatList`'s implementation and [parallax images](#parallaximage-component).
+ 
+ ![react-native-snap-carousel archriss aix](https://i.imgur.com/pPm0csc.gif)
+ ![react-native-snap-carousel archriss aix](https://i.imgur.com/UFsPlz2.gif)
+ 
++### Archriss' showcase app
++
++**You can try the app live on [Android](https://play.google.com/store/apps/details?id=fr.archriss.demo.app) and [iOS](https://itunes.apple.com/lu/app/archriss-presentation-mobile/id1180954376?mt=8).** It currently uses **version 1.4.0** of the plugin. Be aware that sliders' layouts will break on RTL devices since support was added in version 2.1.0 (see [#38](https://github.com/archriss/react-native-snap-carousel/issues/38)).
++
+ ![react-native-snap-carousel](https://i.imgur.com/Fope3uj.gif)
+ ![react-native-snap-carousel](https://i.imgur.com/WNOBYfl.gif)
+ ![react-native-snap-carousel](https://i.imgur.com/sK5DKaG.gif)
+ 
+----
+-
+-## :handshake: Maintainers wanted
+-
+-Hey there,
+-
+-Creating and maintaining this plugin has been a fun ride that started in 2016. We thank you all for your appreciation and for making the most out of it! You've motivated us to spend countless hours improving the plugin, and made us happy to give back to the Open Source community.
+-
+-Put simply, we love this project. However we currently aren't able to give it the love it deserves and the care it requires. **If you have enough time and knowledge, and want to become a maintainer, please let us know**.
+-
+-### 💡 **[Just head there if you're interested](https://github.com/archriss/react-native-snap-carousel/issues/632).**
+-
+-We're not abandoning the ship, but we need more people to help us keep it alive and well!
+-
+----
++> Please note that **we do not plan on Open-Sourcing the code of our showcase app**. Still, we've put together [an example](#example) for you to play with, and you can find some insight about our map implementation [in this comment](https://github.com/archriss/react-native-snap-carousel/issues/11#issuecomment-265147385).
++> The folks at [codedaily.io](https://codedaily.io) have created a great tutorial about implementing a similar feature. [Go check it out!](https://codedaily.io/tutorials/9/Build-a-Map-with-Custom-Animated-Markers-and-Region-Focus-when-Content-is-Scrolled-in-React-Native)
+ 
+ ## Usage
+ 
+@@ -88,7 +78,7 @@ import Carousel from 'react-native-snap-carousel';
+ 
+ export class MyCarousel extends Component {
+ 
+-    _renderItem = ({item, index}) => {
++    _renderItem ({item, index}) {
+         return (
+             <View style={styles.slide}>
+                 <Text style={styles.title}>{ item.title }</Text>
+@@ -111,13 +101,7 @@ export class MyCarousel extends Component {
+ ```
+ 
+ ## Example
+-
+-Here are simple examples that can be edited in real time in your browser:
+-
+-- https://snack.expo.io/@vitkor/carousel-simple-example
+-- https://snack.expo.io/@bd-arc/react-native-snap-carousel-%7C-example-with-custom-interpolations
+-
+-You can also find a more in-depth (read "complex") one in the [`/example` folder](https://github.com/archriss/react-native-snap-carousel/tree/master/example).
++You can find the following example in the [`/example` folder](https://github.com/archriss/react-native-snap-carousel/tree/master/example).
+ 
+ ![react-native-snap-carousel](https://i.imgur.com/pZincya.gif)
+ 
+diff --git a/node_modules/react-native-snap-carousel/doc/PAGINATION.md b/node_modules/react-native-snap-carousel/doc/PAGINATION.md
+index fdb44de..00441a4 100644
+--- a/node_modules/react-native-snap-carousel/doc/PAGINATION.md
++++ b/node_modules/react-native-snap-carousel/doc/PAGINATION.md
+@@ -31,10 +31,6 @@ Prop | Description | Type | Default
+ `renderDots` | Function that gives you complete control over pagination's rendering. It will receive three parameters : `(activeIndex, total, context)`. This can be especially useful in order to replace dots with numbers. **:warning: You will need to provide your own logic to handle taps. See [this comment](https://github.com/archriss/react-native-snap-carousel/issues/273#issuecomment-368295203) for more info.** | Function | `undefined`
+ `tappableDots` | Make default dots tappable, e.g. your carousel will slide to the corresponding item. Note that `carouselRef` must be specified for this to work. | Boolean | `false`
+ `vertical` | Whether to layout dots vertically or horizontally | Boolean | `false`
+-`animatedDuration` | Length of dot animation (milliseconds) | Number | `250`
+-`animatedFriction` | Controls "bounciness"/overshoot on dot animation | Number | `4`
+-`animatedTension` | Controls speed dot animation | Number | `50`
+-`delayPressInDot` | Delay in ms, from the start of the touch, before onPressIn is called on dot | Number | `0`
+ 
+ ## Note on dots' colors
+ If your active and inactive dots aren't of the same color, you have a choice to make:
+diff --git a/node_modules/react-native-snap-carousel/doc/PARALLAX_IMAGE.md b/node_modules/react-native-snap-carousel/doc/PARALLAX_IMAGE.md
+index 3527310..4be6d34 100644
+--- a/node_modules/react-native-snap-carousel/doc/PARALLAX_IMAGE.md
++++ b/node_modules/react-native-snap-carousel/doc/PARALLAX_IMAGE.md
+@@ -84,94 +84,55 @@ const styles = StyleSheet.create({
+ ## Example to use with React Hooks
+ 
+ ```javascript
+-import React, {useRef, useState, useEffect} from 'react';
+-import Carousel, {ParallaxImage} from 'react-native-snap-carousel';
+-import {
+-  View,
+-  Text,
+-  Dimensions,
+-  StyleSheet,
+-  TouchableOpacity,
+-  Platform,
+-} from 'react-native';
+-
+-const ENTRIES1 = [
+-  {
+-    title: 'Beautiful and dramatic Antelope Canyon',
+-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+-    illustration: 'https://i.imgur.com/UYiroysl.jpg',
+-  },
+-  {
+-    title: 'Earlier this morning, NYC',
+-    subtitle: 'Lorem ipsum dolor sit amet',
+-    illustration: 'https://i.imgur.com/UPrs1EWl.jpg',
+-  },
+-  {
+-    title: 'White Pocket Sunset',
+-    subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
+-    illustration: 'https://i.imgur.com/MABUbpDl.jpg',
+-  },
+-  {
+-    title: 'Acrocorinth, Greece',
+-    subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+-    illustration: 'https://i.imgur.com/KZsmUi2l.jpg',
+-  },
+-  {
+-    title: 'The lone tree, majestic landscape of New Zealand',
+-    subtitle: 'Lorem ipsum dolor sit amet',
+-    illustration: 'https://i.imgur.com/2nCt3Sbl.jpg',
+-  },
+-];
+-const {width: screenWidth} = Dimensions.get('window');
++import React, { useRef } from 'react'
++import Carousel, { ParallaxImage } from 'react-native-snap-carousel';
++import { View, Dimensions, StyleSheet } from 'react-native';
+ 
+-const MyCarousel = props => {
+-  const [entries, setEntries] = useState([]);
+-  const carouselRef = useRef(null);
++const { width: screenWidth } = Dimensions.get('window')
+ 
+-  const goForward = () => {
+-    carouselRef.current.snapToNext();
+-  };
++const MyCarousel = (props) => {
++    const carouselRef = useRef(null)
+ 
+-  useEffect(() => {
+-    setEntries(ENTRIES1);
+-  }, []);
++    const goForward = () => {
++        carouselRef.current.snapToNext()
++    }
++
++    const _renderItem = ({item, index}, parallaxProps) => {
++        return (
++            <View style={styles.item}>
++                <ParallaxImage
++                    source={{ uri: item.thumbnail }}
++                    containerStyle={styles.imageContainer}
++                    style={styles.image}
++                    parallaxFactor={0.4}
++                    {...parallaxProps}
++                />
++                <Text style={styles.title} numberOfLines={2}>
++                    { item.title }
++                </Text>
++            </View>
++        );
++    }
+ 
+-  const renderItem = ({item, index}, parallaxProps) => {
+     return (
+-      <View style={styles.item}>
+-        <ParallaxImage
+-          source={{uri: item.illustration}}
+-          containerStyle={styles.imageContainer}
+-          style={styles.image}
+-          parallaxFactor={0.4}
+-          {...parallaxProps}
+-        />
+-        <Text style={styles.title} numberOfLines={2}>
+-          {item.title}
+-        </Text>
+-      </View>
++        <View style={styles.container}>
++            <TouchableOpacity onPress={goForward}>
++                <Text>go to next slide</Text>
++            </TouchableOpacity>
++            <Carousel
++                ref={carouselRef}
++                sliderWidth={screenWidth}
++                sliderHeight={screenWidth}
++                itemWidth={screenWidth - 60}
++                data={this.state.entries}
++                renderItem={this._renderItem}
++                hasParallaxImages={true}
++            />
++        </View>
+     );
+-  };
+-
+-  return (
+-    <View style={styles.container}>
+-      <TouchableOpacity onPress={goForward}>
+-        <Text>go to next slide</Text>
+-      </TouchableOpacity>
+-      <Carousel
+-        ref={carouselRef}
+-        sliderWidth={screenWidth}
+-        sliderHeight={screenWidth}
+-        itemWidth={screenWidth - 60}
+-        data={entries}
+-        renderItem={renderItem}
+-        hasParallaxImages={true}
+-      />
+-    </View>
+-  );
+-};
+-
+-export default MyCarousel;
++}
++
++export default MyCarousel
+ 
+ const styles = StyleSheet.create({
+   container: {
+@@ -183,7 +144,7 @@ const styles = StyleSheet.create({
+   },
+   imageContainer: {
+     flex: 1,
+-    marginBottom: Platform.select({ios: 0, android: 1}), // Prevent a random Android rendering issue
++    marginBottom: Platform.select({ ios: 0, android: 1 }), // Prevent a random Android rendering issue
+     backgroundColor: 'white',
+     borderRadius: 8,
+   },
+@@ -191,6 +152,5 @@ const styles = StyleSheet.create({
+     ...StyleSheet.absoluteFillObject,
+     resizeMode: 'cover',
+   },
+-});
+-
++})
+ ```
+diff --git a/node_modules/react-native-snap-carousel/doc/PROPS_METHODS_AND_GETTERS.md b/node_modules/react-native-snap-carousel/doc/PROPS_METHODS_AND_GETTERS.md
+index 8ece217..64073ab 100644
+--- a/node_modules/react-native-snap-carousel/doc/PROPS_METHODS_AND_GETTERS.md
++++ b/node_modules/react-native-snap-carousel/doc/PROPS_METHODS_AND_GETTERS.md
+@@ -39,7 +39,6 @@ Prop | Description | Type | Default
+ `hasParallaxImages` | Whether the carousel contains `<ParallaxImage />` components or not. Required for specific data to be passed to children. | Boolean | `false`
+ `lockScrollTimeoutDuration` | This prop works in conjunction with `lockScrollWhileSnapping`. When scroll is locked, a timer is created in order to release the scroll if something goes wrong with the regular callback handling. **Normally, you shouldn't have to use this prop.** | Number | `1000`
+ `lockScrollWhileSnapping` | Prevent the user from swiping again while the carousel is snapping to a position. This prevents miscellaneous minor issues (inadvertently tapping an item while scrolling, stopping the scrolling animation if the carousel is tapped in the middle of a snap, clunky behavior on Android when short snapping quickly in opposite directions). The only drawback is that enabling the prop hinders the ability to swipe quickly between items as a little pause between swipes is needed. **Note that the prop won't have any effect if `enableMomentum` is set to `true`, since it would otherwise impede the natural and expected behavior.** | Boolean | `false`
+-`scrollEnabled` | When `false`, the view cannot be scrolled via touch interaction ([inherited prop](https://github.com/archriss/react-native-snap-carousel/blob/master/doc/PROPS_METHODS_AND_GETTERS.md#inherited-props)) | Boolean | `true`
+ `shouldOptimizeUpdates` | Whether to implement a `shouldComponentUpdate` strategy to minimize updates | Boolean | `true`
+ `swipeThreshold` | Delta x when swiping to trigger the snap | Number | `20`
+ `useScrollView` | Whether to use a `ScrollView` component instead of the default `FlatList` one. The advantages are to avoid rendering issues that can arise with `FlatList` and to provide compatibility with React Native pre- `0.43`. The major drawbacks are that you won't benefit from any of `FlatList`'s advanced optimizations and that you won't be able to use either `VirtualizedList` or `FlatList`'s specific props. **We recommend activating it only with a small set of slides and to test performance thoroughly in production mode.** Since version `3.7.6`, this prop also accepts a custom scroll component (see #498 for more info). | Boolean | `false` for `default` layout, `true` for `stack` and `tinder` layouts
+@@ -49,7 +48,7 @@ Prop | Description | Type | Default
+ 
+ Prop | Description | Type | Default
+ ------ | ------ | ------ | ------
+-`loop` | Enable infinite loop mode. **:warning: It won't work if `enableSnap` has been set to `false`.** | Boolean | `false`
++`loop` | Enable infinite loop mode. Note that it won't work if `enableSnap` has been set to `false`. | Boolean | `false`
+ `loopClonesPerSide` | Number of clones to append to each side of the original items. **When swiping very quickly**, the user will eventually need to pause for a quick second before the scroll is repositioned (this occurs when the end of the set is reached). By increasing this number, the user will be able to scroll more slides before having to stop; but you'll also load more items in memory. This is a trade-off between optimal user experience and performance. | Number | `3`
+ 
+ ### Autoplay
+diff --git a/node_modules/react-native-snap-carousel/doc/VERSION_4.md b/node_modules/react-native-snap-carousel/doc/VERSION_4.md
+deleted file mode 100644
+index eac8ec5..0000000
+--- a/node_modules/react-native-snap-carousel/doc/VERSION_4.md
++++ /dev/null
+@@ -1,71 +0,0 @@
+-# A shiny new version is on its way!
+-
+-![react-native-snap-carousel mind blown](https://i.imgur.com/gdaKtSm.gif)
+-
+-## 💡 Why?
+-
+-So far, and because of [numerous React Native limitations](https://github.com/archriss/react-native-snap-carousel/issues/203), the entire plugin has basically been based on a pile of hacks and workarounds...
+-
+-With the most recent versions of React Native, a few interesting props have appeared and made me consider the possibility of finally rewriting the inner logic of the carousel.
+-
+-Don't get me wrong: we'll still have to rely on a few hacks to account for, well, Android particularly. But it was possible to get rid of most of them, and that is for the best!
+-
+-## ✨ Wonderful benefits
+-
+-Most of the heavy work is done, and here's what you can enjoy out-of-the-box:
+-
+-- **(Very) Smooth scrolling.** Put simply, this is night and day. Just try it for yourself and you'll see that there's just no going back!
+-- **Reliable callback logic.**
+-- **Optimized custom interpolations ('stack' and 'tinder' layouts for example) that can be used with a huge number of items.** Previously, you couldn't use those with a big data set as this would create performance issues. :warning: **This one is iOS-only for now** (but, given a few recent tests, we might find a way to make it work on Android).
+-- **An experimental snap feature** that is promising but not yet complete (see below).
+-
+-## 📍 Next steps
+-
+-Before making it widely available, **I now need your help** 🙌
+-
+-The first thing you can do is test this new version and let me know how it works for you and you particular setup. For example, vertical carousels, pagination and parallax images haven't been tested yet — they are expected to work properly though.
+-
+-### How to test?
+-
+-- You can find the already published beta versions by running: `npm view react-native-snap-carousel versions --json`
+-- [Follow this PR closely](https://github.com/archriss/react-native-snap-carousel/pull/678). **This is where the discussion will take place.**
+-- And if you like to live on the edge, [try the latest commits](https://stackoverflow.com/a/27630247/) of that same PR ;-)
+-
+-### 🦸‍♀️🦸‍♂️ Get your hands dirty!
+-
+-Then, **if you want to jump in**, I'd be glad if you could help me with the following:
+-
+-1. **Reducing the number of rerenders** (see [#478](https://github.com/archriss/react-native-snap-carousel/issues/478)). [`why-did-you-render`](https://github.com/welldone-software/why-did-you-render) is going to prove really helpful for that.
+-2. **Finding a way to make the experimental snap feature work even with the last items** (see "New props" below for more details on this feature).
+-
+-Let's finish that together and make sure this plugin remains absolutely awesome!
+-
+-Cheers,
+-[bd-arc](https://github.com/bd-arc)
+-
+----
+-
+-## 📚 New, updated and removed props
+-
+-### New props
+-
+-Prop | Description | Type | Default
+------- | ------ | ------ | ------
+-✅ **`useExperimentalSnap`** | By default, items will always be centered according to the `activeSlideAlignment` prop. A sometimes unwanted result of this is the addition of empty spaces at the end/beginning of the carousel. Since version 4, it is possible to use another centering option that will avoid white spaces. :warning: **If you set it to `true`, some items might not be "reachable" — i.e. for the last item(s), the snap callbacks won't be triggered and the animations won't be complete.** We recommend activate it only if you don't rely on `onSnapToItem` and if both `inactiveSlideScale` and `inactiveSlideOpacity` are set to `1`. A side benefit of activating it is **the ability to slide only one item at a time** when setting the inherited prop `disableIntervalMomentum` to `true`. | Boolean | `false`
+-✅ **`onScrollIndexChanged(slideIndex)`** | Executed as soon as the active index changes during scroll (whereas `onSnapToItem` is executed only for the last active item). :warning: **Avoid doing heavy calculations or rendering here!** | Function | `undefined`
+-
+-### Updated props
+-
+-Prop | Description | Type | Default
+------- | ------ | ------ | ------
+-✅ **`renderItem({ item, index, dataIndex })`** | `renderItem()` now receives a **`dataIndex` param** that will represent the index based on your data set and not on the actual number of items — the two numbers won't match for looped carousels. This is useful if you need to pass to the item something based on your data rather than on the inner index. | Function | **Required**
+-
+-### Removed props
+-
+-- ❌ `activeAnimationOptions`
+-- ❌ `activeAnimationType`
+-- ❌ `enableMomentum`
+-- ❌ `lockScrollTimeoutDuration`
+-- ❌ `lockScrollWhileSnapping`
+-- ❌ `onBeforeSnapToItem`
+-- ❌ `swipeThreshold`
+\ No newline at end of file
+diff --git a/node_modules/react-native-snap-carousel/src/.DS_Store b/node_modules/react-native-snap-carousel/src/.DS_Store
+new file mode 100644
+index 0000000..a83d6f4
+Binary files /dev/null and b/node_modules/react-native-snap-carousel/src/.DS_Store differ
+diff --git a/node_modules/react-native-snap-carousel/src/carousel/Carousel.js b/node_modules/react-native-snap-carousel/src/carousel/Carousel.js
+index dae71a3..ed04074 100644
+--- a/node_modules/react-native-snap-carousel/src/carousel/Carousel.js
++++ b/node_modules/react-native-snap-carousel/src/carousel/Carousel.js
+@@ -481,12 +481,6 @@ export default class Carousel extends Component {
+     }
+ 
+     _getWrappedRef () {
+-        if (this._carouselRef && (
+-            (this._needsScrollView() && this._carouselRef.scrollTo) ||
+-            (!this._needsScrollView() && this._carouselRef.scrollToOffset)
+-        )) {
+-            return this._carouselRef;
+-        }
+         // https://github.com/facebook/react-native/issues/10635
+         // https://stackoverflow.com/a/48786374/8412141
+         return this._carouselRef && this._carouselRef.getNode && this._carouselRef.getNode();
+@@ -916,10 +910,6 @@ export default class Carousel extends Component {
+             return;
+         }
+ 
+-        if (this._currentContentOffset === this._scrollEndOffset) {
+-            return;
+-        }
+-
+         this._scrollEndOffset = this._currentContentOffset;
+         this._scrollEndActive = this._getActiveItem(this._scrollEndOffset);
+ 
+@@ -1044,8 +1034,6 @@ export default class Carousel extends Component {
+ 
+         this._scrollTo(this._scrollOffsetRef, animated);
+ 
+-        this._scrollEndOffset = this._currentContentOffset;
+-
+         if (enableMomentum) {
+             // iOS fix, check the note in the constructor
+             if (!initial) {
+@@ -1112,8 +1100,6 @@ export default class Carousel extends Component {
+ 
+     pauseAutoPlay () {
+         this._autoplaying = false;
+-        clearTimeout(this._autoplayTimeout);
+-        clearTimeout(this._enableAutoplayTimeout);
+         clearInterval(this._autoplayInterval);        
+     }
+ 
+diff --git a/node_modules/react-native-snap-carousel/src/pagination/Pagination.js b/node_modules/react-native-snap-carousel/src/pagination/Pagination.js
+index 5c021cf..dc01a6f 100644
+--- a/node_modules/react-native-snap-carousel/src/pagination/Pagination.js
++++ b/node_modules/react-native-snap-carousel/src/pagination/Pagination.js
+@@ -27,22 +27,14 @@ export default class Pagination extends PureComponent {
+         renderDots: PropTypes.func,
+         tappableDots: PropTypes.bool,
+         vertical: PropTypes.bool,
+-        accessibilityLabel: PropTypes.string,
+-        animatedDuration: PropTypes.number,
+-        animatedFriction: PropTypes.number,
+-        animatedTension: PropTypes.number,
+-        delayPressInDot: PropTypes.number,
++        accessibilityLabel: PropTypes.string
+     };
+ 
+     static defaultProps = {
+         inactiveDotOpacity: 0.5,
+         inactiveDotScale: 0.5,
+         tappableDots: false,
+-        vertical: false,
+-        animatedDuration: 250,
+-        animatedFriction: 4,
+-        animatedTension: 50,
+-        delayPressInDot: 0,
++        vertical: false
+     }
+ 
+     constructor (props) {
+@@ -61,7 +53,7 @@ export default class Pagination extends PureComponent {
+                 'You need to specify both `dotElement` and `inactiveDotElement`'
+             );
+         }
+-        if (props.tappableDots && props.carouselRef === undefined) {
++        if (props.tappableDots && !props.carouselRef) {
+             console.warn(
+                 'react-native-snap-carousel | Pagination: ' +
+                 'You must specify prop `carouselRef` when setting `tappableDots` to `true`'
+@@ -94,11 +86,7 @@ export default class Pagination extends PureComponent {
+             inactiveDotScale,
+             inactiveDotStyle,
+             renderDots,
+-            tappableDots,
+-            animatedDuration,
+-            animatedFriction,
+-            animatedTension,
+-            delayPressInDot,
++            tappableDots
+         } = this.props;
+ 
+         if (renderDots) {
+@@ -116,23 +104,21 @@ export default class Pagination extends PureComponent {
+           inactiveOpacity={inactiveDotOpacity}
+           inactiveScale={inactiveDotScale}
+           inactiveStyle={inactiveDotStyle}
+-          animatedDuration={animatedDuration}
+-          animatedFriction={animatedFriction}
+-          animatedTension={animatedTension}
+-          delayPressInDot={delayPressInDot}
+         />;
+ 
+-        const dots = [...Array(dotsLength).keys()].map(i => {
++        let dots = [];
++
++        for (let i = 0; i < dotsLength; i++) {
+             const isActive = i === this._activeDotIndex;
+-            return React.cloneElement(
++            dots.push(React.cloneElement(
+                 (isActive ? dotElement : inactiveDotElement) || DefaultDot,
+                 {
+                     key: `pagination-dot-${i}`,
+-                    active: isActive,
++                    active: i === this._activeDotIndex,
+                     index: i
+                 }
+-            );
+-        });
++            ));
++        }
+ 
+         return dots;
+     }
+diff --git a/node_modules/react-native-snap-carousel/src/pagination/PaginationDot.js b/node_modules/react-native-snap-carousel/src/pagination/PaginationDot.js
+index e59d196..858c05d 100644
+--- a/node_modules/react-native-snap-carousel/src/pagination/PaginationDot.js
++++ b/node_modules/react-native-snap-carousel/src/pagination/PaginationDot.js
+@@ -43,11 +43,10 @@ export default class PaginationDot extends PureComponent {
+ 
+     _animate (toValue = 0) {
+         const { animColor, animOpacity, animTransform } = this.state;
+-        const { animatedDuration, animatedFriction, animatedTension } = this.props
+ 
+         const commonProperties = {
+             toValue,
+-            duration: animatedDuration,
++            duration: 250,
+             isInteraction: false,
+             useNativeDriver: !this._shouldAnimateColor
+         };
+@@ -58,8 +57,8 @@ export default class PaginationDot extends PureComponent {
+                 ...commonProperties
+             }),
+             Animated.spring(animTransform, {
+-                friction: animatedFriction,
+-                tension: animatedTension,
++                friction: 4,
++                tension: 50,
+                 ...commonProperties
+             })
+         ];
+@@ -93,8 +92,7 @@ export default class PaginationDot extends PureComponent {
+             inactiveScale,
+             index,
+             style,
+-            tappable,
+-            delayPressInDot
++            tappable
+         } = this.props;
+ 
+         const animatedStyle = {
+@@ -130,15 +128,7 @@ export default class PaginationDot extends PureComponent {
+         ];
+ 
+         const onPress = tappable ? () => {
+-            try {
+-                const currentRef = carouselRef.current || carouselRef;
+-                currentRef._snapToItem(currentRef._getPositionIndex(index));
+-            } catch (error) {
+-                console.warn(
+-                    'react-native-snap-carousel | Pagination: ' +
+-                    '`carouselRef` has to be a Carousel ref.\n' + error
+-                );
+-            }
++            carouselRef && carouselRef._snapToItem(carouselRef._getPositionIndex(index));
+         } : undefined;
+ 
+         return (
+@@ -147,7 +137,6 @@ export default class PaginationDot extends PureComponent {
+               style={dotContainerStyle}
+               activeOpacity={tappable ? activeOpacity : 1}
+               onPress={onPress}
+-              delayPressIn={delayPressInDot}
+             >
+                 <Animated.View style={dotStyle} />
+             </TouchableOpacity>
